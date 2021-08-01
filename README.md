@@ -1,0 +1,2 @@
+# WebAssemblySample
+WebAssembly用のリポジトリです。
