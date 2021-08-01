@@ -1,4 +1,5 @@
 mod utils;
+mod logic;
 
 use wasm_bindgen::prelude::*;
 
@@ -17,3 +18,4 @@ extern {
 pub fn greet() {
     alert("Hello, web-assemmbly-sample!");
 }
+

@@ -65,3 +65,45 @@ pub fn generate_mandelbrot_set(
         }
         data
 }
+
+/**
+ * 各種テストを追記する。
+ */
+#[cfg(test)]
+mod tests {
+    // 必要なモジュールを読み込む
+    use super::*;
+
+    /**
+     * get_n_diverged()関数用のテスト
+     */
+    #[test]
+    fn test_get_n_diverged() {
+        // イテレーション関数
+        let max_iter = 10;
+        // チェック
+        assert_eq!(get_n_diverged(1.0, 0.0, max_iter), 3);
+        assert_eq!(get_n_diverged(0.0, 0.0, max_iter), max_iter as u8);
+        assert_eq!(get_n_diverged(0.0, 1.0, max_iter), max_iter as u8);
+    }
+
+    /**
+     * generate_mandelbrot_set関数用のテスト
+     */
+    #[test]
+    fn test_generate_mandelbrot_set() {
+        // 各種変数を用意する。
+        let canvas_w = 2;
+        let canvas_h = 2;
+        let x_min = -1.0;
+        let x_max = 1.0;
+        let y_min = -1.0;
+        let y_max = 1.0;
+        let max_iter = 8;
+        // [(-1, -1), (-1, 0), (0, -1), (0, 0)]について値を確認する。
+        aseert_eq!(
+            generate_mandelbrot_set(canvas_w, canvas_h, x_min, x_max, y_min, y_max, max_iter),
+            vec![96, 96, 255, 0, 0, 0, 255, 0, 0, 0, 255, 0, 0, 0, 255]
+        );
+    }
+}
