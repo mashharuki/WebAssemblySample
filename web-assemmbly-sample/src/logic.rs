@@ -24,7 +24,7 @@ fn get_n_diverged(x0: f64, y0: f64, max_iter: usize) -> u8 {
             return 1 as u8;
         }
     }
-    max_iter as u8;
+    max_iter as u8
 }
 
 /**
@@ -36,7 +36,8 @@ pub fn generate_mandelbrot_set(
     x_min: f64, 
     x_max: f64, 
     y_min: f64, 
-    y_max: f64) -> Vec<u8> {
+    y_max: f64,
+    max_iter: usize) -> Vec<u8> {
         let canvas_w_f64 = canvas_w as f64;
         let canvas_h_f64 = canvas_h as f64;
         // 色情報を格納する配列を用意する。
@@ -101,9 +102,9 @@ mod tests {
         let y_max = 1.0;
         let max_iter = 8;
         // [(-1, -1), (-1, 0), (0, -1), (0, 0)]について値を確認する。
-        aseert_eq!(
+        assert_eq!(
             generate_mandelbrot_set(canvas_w, canvas_h, x_min, x_max, y_min, y_max, max_iter),
-            vec![96, 96, 255, 0, 0, 0, 255, 0, 0, 0, 255, 0, 0, 0, 255]
+            vec![96, 96, 96, 255, 0, 0, 0, 255, 0, 0, 0, 255, 0, 0, 0, 255]
         );
     }
 }
