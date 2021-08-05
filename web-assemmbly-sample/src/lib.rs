@@ -31,7 +31,22 @@ macro_rules! measure_elapsed_time {
         let result = { $s };
         let end = performance.now();
         console_log!("{}:{}[ms]", $t, end - start);
+        result
     }};
+}
+#[wasm_bindgen]
+pub fn generate_mandelbrot_set(
+    canvas_w: usize,
+    canvas_h: usize,
+    x_min: f64,
+    x_max: f64,
+    y_min: f64,
+    y_max: f64,
+    max_iter: usize,
+) -> Vec<u8> {
+    // measure_elapsed_time!("generate:wasm\telapsed:", {
+    logic::generate_mandelbrot_set(canvas_w, canvas_h, x_min, x_max, y_min, y_max, max_iter)
+    // })
 }
 
 // 描画と時間計測をwasm側で実施するための関数
@@ -53,12 +68,12 @@ pub fn draw_mandelbrot_set() {
     const X_MAX: f64 = 0.5;
     const Y_MIN: f64 = -1.0;
     const Y_MAX: f64 = 1.0;
-    const MAX_ITER: usize = 64;
+    const MAX_ITER: usize = 1 << 7 - 1;
 
     // 時間を計測するためのマクロを呼び出す。
     let mut result = measure_elapsed_time!("generate:wasm¥telapsed:", {
         // 色情報を生成する。
-        logic::generate_mandelbrot_set(canvas_w, canvas_h, X_MIN, X_MAX, Y_MIN, Y_MAX, MAX_ITER);
+        logic::generate_mandelbrot_set(canvas_w, canvas_h, X_MIN, X_MAX, Y_MIN, Y_MAX, MAX_ITER)
     });
     // 再び時間計測用のマクロを呼び出す。
     measure_elapsed_time!("draw:wasm¥telapsed:", {
